@@ -1,8 +1,8 @@
 import express from 'express';
 import dotenv from 'dotenv';
 dotenv.config();
-require('dotenv').config;
 import bodyParser from 'body-parser';
+import validator from 'validator';
 import {filterImageFromURL, deleteLocalFiles} from './util/util';
 
 (async () => {
@@ -31,7 +31,21 @@ import {filterImageFromURL, deleteLocalFiles} from './util/util';
   //   the filtered image file [!!TIP res.sendFile(filteredpath); might be useful]
 
   /**************************************************************************** */
+  app.get("/filteredimage/", async (req, res) =>{
+    try{
+      let {image_url} = req.query;
+      image_url = String(image_url);
+      if(!image_url || !validator.isURL(image_url)){
+        return res.status(400).send("bad request!");
+      }
 
+      const path = await filterImageFromURL(image_url);
+      res.sendFile(path);
+      res.on('finish', () => deleteLocalFiles([path]));
+    } catch {
+      return res.status(500).send({error: 'Unable to process your request'});
+    }
+    });
   //! END @TODO1
   
   // Root Endpoint
