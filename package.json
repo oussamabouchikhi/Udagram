@@ -1,14 +1,16 @@
 {
-  "name": "Udagram",
+  "name": "udagram",
   "version": "1.0.0",
   "description": "",
-  "main": "./www/server.js",
+  "main": "www/server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "clean": "rimraf www/ || true",
-    "build": "npm run clean && tsc && cp package.json www/package.json && mkdir www/tmp/ && cd www && zip -r Archive.zip . && cd ..",
+    "start": "node www/server.js",
+    "tsc": "tsc",
     "dev": "ts-node-dev ./src/server.ts",
-    "start": "node ."
+    "prod": "tsc && node ./www/server.js",
+    "clean": "rimraf www/ || true",
+    "build": "npm run clean && tsc && cp -rf src/config www/config && cp .npmrc www/.npmrc && cp package.json www/package.json && cd www && zip -r Archive.zip . && cd ..",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
@@ -30,6 +32,7 @@
     "typescript": "^3.5.3"
   },
   "dependencies": {
+    "aws-sdk": "^2.978.0",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
     "jimp": "^0.16.1",
