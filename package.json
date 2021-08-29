@@ -1,16 +1,14 @@
 {
-  "name": "udagram",
+  "name": "Udagram",
   "version": "1.0.0",
-  "description": "Udagram is an instagram like app, where you can create an account and upload images to the cloud!",
-  "main": "www/server.js",
+  "description": "",
+  "main": "./www/server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node www/server.js",
-    "tsc": "tsc",
+    "clean": "rimraf www/ || true",
+    "build": "npm run clean && tsc && cp package.json www/package.json && mkdir www/tmp/ && cd www && zip -r Archive.zip . && cd ..",
     "dev": "ts-node-dev ./src/server.ts",
-    "prod": "tsc && node ./www/server.js",
-    "build": "npm run clean && tsc && cp -rf src/config www/config && cp .npmrc www/.npmrc && cp package.json www/package.json && cd www && zip -r Archive.zip . && cd ..",
-    "clean": "rimraf www/ || true"
+    "start": "node ."
   },
   "repository": {
     "type": "git",
@@ -21,27 +19,21 @@
   "bugs": {
     "url": "https://github.com/oussamabouchikhi/Udagram.git/issues"
   },
-  "homepage": "https://github.com/oussamabouchikhi/Udagram.git#readme",
+  "homepage": "https://github.com/grutt/udacity-c2-image-filter#readme",
   "devDependencies": {
     "@types/bluebird": "^3.5.27",
     "@types/express": "^4.17.0",
     "@types/node": "^11.13.17",
-    "@types/sequelize": "^4.28.9",
     "@types/validator": "^10.11.3",
-    "ts-node-dev": "^1.1.8",
+    "ts-node-dev": "^1.0.0-pre.40",
     "tslint": "^5.18.0",
     "typescript": "^3.5.3"
   },
   "dependencies": {
-    "aws-sdk": "^2.492.0",
-    "body-parser": "^1.19.0",
-    "pg": "^8.0.3",
-    "reflect-metadata": "^0.1.13",
-    "sequelize": "^5.10.0",
-    "sequelize-typescript": "^0.6.11",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
     "jimp": "^0.16.1",
-    "rimraf": "^3.0.2"
+    "rimraf": "^3.0.2",
+    "validator": "^13.6.0"
   }
 }
